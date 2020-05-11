@@ -1,0 +1,74 @@
+
+param (
+
+    [Parameter(Mandatory=$true)] 
+    [String] $ResourceGroupName,
+        
+    [Parameter(Mandatory=$true)]
+    [String] $AzureSubscriptionId,
+
+    [Parameter(Mandatory=$true)]
+    [String] $VmList
+)
+
+$conn = Get-AutomationConnection -Name 'AzureRunAsConnection'
+
+
+# Returns strings with status messages
+[OutputType([String])]
+
+$null =Add-AzureRmAccount -ServicePrincipal  -TenantId $conn.TenantId -ApplicationId $conn.ApplicationId -CertificateThumbprint $conn.CertificateThumbprint  
+
+$null = Select-AzureRmSubscription -SubscriptionId $AzureSubscriptionId
+
+# If there is a specific resource group, then get all VMs in the resource group,
+# otherwise get all VMs in the subscription.
+if ($ResourceGroupName) 
+{ 
+    Write-Output($ResourceGroupName)
+    Write-Output($AzureSubscriptionId)
+    if ($VmList -eq '*') 
+    {
+        $VMs = Get-AzureRmVM -ResourceGroupName $ResourceGroupName 
+        # Start each of the VMs
+        foreach ($VM in $VMs)
+        {
+            Write-Output($VM.Name)
+            $btn= Start-AzureRmVM  -ResourceGroupName $ResourceGroupName -Name $VM.Name 
+            if ($btn.StatusCode -ne 'OK')
+            {
+                # The VM failed to start, so send notice
+                Write-Output ($VM.Name + " failed to start")
+            }
+            else
+            {
+                # The VM stopped, so send notice
+                Write-Output ($VM.Name + " has been started")
+            }
+
+        }
+    }
+    else
+    {
+        $VMs = $VmList.split(",")
+        # Start each of the VMs
+        foreach ($VM in $VMs)
+        {
+            Write-Output($VM)
+                $btn= Start-AzureRmVM  -ResourceGroupName $ResourceGroupName -Name $VM 
+                if ($btn.StatusCode -ne 'OK')
+                {
+                    # The VM failed to start, so send notice
+                    Write-Output ($VM + " failed to start")
+                }
+                else
+                {
+                    # The VM stopped, so send notice
+                    Write-Output ($VM + " has been started")
+                }
+
+        }
+    }
+	
+
+}

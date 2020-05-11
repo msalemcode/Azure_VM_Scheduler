@@ -1,0 +1,24 @@
+
+<nav class="navbar  navbar-fixed-top" style="background-color: #1a2288;
+border-color: #080808;" >
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="color: white !important; left:150px !important;position: absolute;" href="/">Virtual Machines Management and Automation Tool - POC</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            {% if user.is_authenticated %}
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="navbar-text" style="color: white !important">Hello {{ user.user_principal_name }}!</li>
+                <li><a style="color: white !important" href="/account/signout">Sign out</a></li>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</nav>

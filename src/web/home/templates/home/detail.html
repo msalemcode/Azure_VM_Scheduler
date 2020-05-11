@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'nav.html' %}
+ 
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">Please select your resource group to load virtual machines</div>
+            <div class="panel-body">
+                <form class="form-horizontal" method="POST" action="getvmlist">{% csrf_token %}
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Resource Group :</label>
+                        <div class="col-sm-8">
+                        </p>
+                            <select name ="dropdownl" class="form-control-static" style="width: 300px">
+                                {% for group in groups %}
+                                <option value="{{ group.group }}" {{ group.selected}}>{{ group.group}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                   
+                    <div class="form-group"></div>
+                    <div class="form-group">
+                       
+                        <div class="col-sm-offset-4 col-sm-12">
+                            &nbsp;<input type="submit" value="Get virtual Machine List" class="btn btn-default"/>
+
+                        </div>
+                    </div>
+                    </div>
+                    </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">Virtual Machines List</div>
+            <div class="panel-body">
+
+                <table class="table" id="book-table" >
+                    <thead>
+                      <tr>
+                        <th>VM Name</th>
+                        <th>Status</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                            {% include 'home/includes/partial_vm_list.html' %}
+                    </tbody>
+                  </table>
+                
+                  <div class="modal fade" id="modal-group">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

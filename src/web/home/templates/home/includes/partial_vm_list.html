@@ -1,0 +1,29 @@
+{% for vm in vmslist %}
+<tr>
+  <td>{{ vm.vm_name }}</td>
+  <td>{{ vm.vm_status }}</td>
+  <td style="width: 300px; text-align: right">
+  {% if vm.vm_status != "RUNNING" %}
+    <button type="button"
+            class="btn btn-primary btn-sm js-update-group"
+            data-url="{% url 'vm_start' vm.id %}">Start</button>
+    {% endif %}
+    {% if vm.vm_status == "RUNNING" %}   
+    <button type="button"
+            class="btn btn-warning  btn-sm js-delete-group"
+            data-url="{% url 'vm_restart' vm.id %}">Restart</button>
+            &nbsp;&nbsp;
+            <button type="button"
+            class="btn btn-danger btn-sm js-delete-group"
+            data-url="{% url 'vm_stop' vm.id %}">Stop</button>          
+
+  {% endif %}
+  </td>
+</tr>
+
+
+{% empty %}
+<tr>
+  <td colspan="8" class="text-center bg-warning">No VMs</td>
+</tr>
+{% endfor %}

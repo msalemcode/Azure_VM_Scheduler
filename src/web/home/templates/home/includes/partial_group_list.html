@@ -1,0 +1,37 @@
+{% for group in groups %}
+  <tr>
+    <td>{{ group.id }}</td>
+    <td>{{ group.group_name }}</td>
+    <td>{{ group.group_desc }}</td>
+    <td>{{ group.start_time }}</td>
+    <td>{{ group.shutdown_time }}</td>
+    <td>{{ group.schedule_end}}</td>
+    <td>{{ group.recurring}}</td>
+    <td>{{ group.time_zone}}</td>
+    <td style="width: 300px; text-align: right">
+    {% if group.start_time != ""%}
+      <button type="button"
+              class="btn btn-warning btn-sm js-update-group"
+              data-url="{% url 'group_update' pk=group.id  %}">
+        <span class="glyphicon glyphicon-pencil"></span> Edit
+      </button>
+      <button type="button"
+              class="btn btn-danger btn-sm js-delete-group"
+              data-url="{% url 'group_delete' group.id %}">
+        <span class="glyphicon glyphicon-trash"></span> Delete
+      </button>
+    {% endif %}
+
+      <button type="button"
+      class="btn btn-primary js-update-group"
+      data-url="{% url 'group_create' pk=group.id %}">
+      <span class="glyphicon glyphicon-plus"></span> Add</button>
+    </td>
+  </tr>
+
+
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center bg-warning">No Group</td>
+  </tr>
+{% endfor %}

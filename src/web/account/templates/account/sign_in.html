@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div id="signIn" class="row">
+    <div class="col-sm-6 col-md-6 left">
+    </div>
+    <div class="col-sm-6 col-md-6 right">
+        <section>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <h2>Microsoft login </h4>           
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <div>
+                <a href="/account/signin/azure_ad">
+                    <img src="{% static "images/ms-signin.svg" %}" />
+                </a>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

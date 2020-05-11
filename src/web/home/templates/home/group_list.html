@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block scripts %}
+{% endblock %}
+{% block content %}
+{% include 'nav.html' %}
+  <h1 class="page-header">My Resource Groups Schedule</h1>
+  <div style=" visibility:hidden;">
+  <p>
+    <button type="button" class="btn btn-primary js-create-group" data-url="{% url 'group_create' %}">
+      <span class="glyphicon glyphicon-plus"></span>
+      Add Schedule
+    </button>
+  </p>
+</div>
+  <table class="table" id="book-table" >
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Resource Group Name</th>
+        <th>Schedule Name</th>
+        <th>Power On Schedule</th>
+        <th>Power OFF Schedule</th>
+        <th>End Schedule</th>
+        <th>Recurring</th>
+        <th>Time Zone</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% include 'home/includes/partial_group_list.html' %}
+    </tbody>
+  </table>
+
+  <div class="modal fade" id="modal-group">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
