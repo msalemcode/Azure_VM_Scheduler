@@ -1,7 +1,7 @@
 django==2.2.10
 requests==2.21.0
 requests-oauthlib==1.2.0
-pyjwt==1.7.1
+pyjwt==2.4.0
 cryptography==2.6.1
 django-encrypted-model-fields==0.5.8
 azure==4.0.0
